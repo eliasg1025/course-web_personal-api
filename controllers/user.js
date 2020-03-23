@@ -4,12 +4,10 @@ const User = require('../models/User');
 function signUp(req, res) {
   const user = new User();
 
-  const { name, lastname, email, password, repeatPassword } = req.body;
-  user.name = name;
-  user.lastname = lastname;
+  const { email, password, repeatPassword } = req.body;
   user.email = email;
   user.role = 'admin';
-  user.actibe = false;
+  user.active = false;
 
   if (!password || !repeatPassword) {
     res.status(404).send({ message: 'Las contraseñas son obligatorias' });

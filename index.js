@@ -5,20 +5,25 @@ const { API_VERSION, IP_SERVER, PORT_DB } = require('./config');
 
 mongoose.set('useFindAndModify', false);
 
-mongoose.connect(`mongodb://${IP_SERVER}:${PORT_DB}/b5vvgdpg7ijbcnj`, {
+mongoose.connect(
+  `mongodb+srv://${IP_SERVER}/test?retryWrites=true&w=majority`,
+  {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-}, (err, res) => {
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  },
+  (err, res) => {
     if (err) {
-        throw err;
+      throw err;
     } else {
-        console.log('La conexion a la base de datos es correcta \n');
+      console.log('La conexion a la base de datos es correcta \n');
 
-        app.listen(port, () => {
-            console.log('#####################################');
-            console.log('############# API REST ##############');
-            console.log('##################################### \n');
-            console.log(`http://localhost:${port}/api/${API_VERSION}`);
-        })
+      app.listen(port, () => {
+        console.log('#####################################');
+        console.log('############# API REST ##############');
+        console.log('##################################### \n');
+        console.log(`http://localhost:${port}/api/${API_VERSION}`);
+      });
     }
-});
+  }
+);
