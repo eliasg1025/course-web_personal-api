@@ -60,8 +60,36 @@ function updateMenu(req, res) {
     });
 }
 
+function activateMenu(req, res) {
+    const { id } = req.params;
+    const { active } = req.body;
+
+    Menu.findByIdAndUpdate(id, { active }, (err, menuStored) => {
+        if (err) {
+            res.status(500).send({ message: 'Error del servidor' });
+        } else {
+            if (!menuStored) {
+                res.status(404).send({
+                    message: 'No se ha encontrado en el menu'
+                });
+            } else {
+                if (active === true) {
+                    res.status(200).send({
+                        message: 'Menu activado correctamente'
+                    });
+                } else {
+                    res.status(200).send({
+                        message: 'Menu desactivado correctamente'
+                    });
+                }
+            }
+        }
+    });
+}
+
 module.exports = {
     addMenu,
     getMenus,
-    updateMenu
+    updateMenu,
+    activateMenu
 };
