@@ -29,15 +29,39 @@ function getMenus(req, res) {
                 res.status(500).send({ message: 'Error del servidr' });
             } else {
                 if (!menusStored || menusStored.length === 0) {
-                    res.status(404).send({ message: 'No se ha encontrado ningun menu' });
+                    res.status(404).send({
+                        message: 'No se ha encontrado ningun menu'
+                    });
                 } else {
                     res.status(200).send({ menus: menusStored });
                 }
             }
-        })
+        });
+}
+
+function updateMenu(req, res) {
+    let menuData = req.body;
+    const params = req.params;
+
+    Menu.findByIdAndUpdate(params.id, menuData, (err, menuUpdate) => {
+        if (err) {
+            res.status(500).send({ message: 'Error del servidor' });
+        } else {
+            if (!menuUpdate) {
+                res.status(404).send({
+                    message: 'No se ha encontrado ningun menu'
+                });
+            } else {
+                res.status(200).send({
+                    message: 'Menu actulizado correctamente'
+                });
+            }
+        }
+    });
 }
 
 module.exports = {
     addMenu,
-    getMenus
+    getMenus,
+    updateMenu
 };
