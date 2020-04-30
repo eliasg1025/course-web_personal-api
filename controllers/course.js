@@ -25,7 +25,7 @@ function getCourses(req, res) {
             if (err) {
                 res.status(500).send({ code: 500, message: 'Error del servidor' });
             } else {
-                if (!coursesStored || coursesStored.length === 0) {
+                if (!coursesStored) {
                     res.status(404).send({ code: 404, message: 'No se ha encontrado ningun curso' });
                 } else {
                     res.status(200).send({ code: 200, courses: coursesStored });
@@ -50,8 +50,26 @@ function deleteCourse(req, res) {
     });
 }
 
+function updateCourse(req, res) {
+    const courseData = req.body;
+    const { id } = req.params;
+
+    Course.findByIdAndUpdate(id, courseData, (err, courseUpdated) => {
+        if (err) {
+            res.status(500).send({ code: 500, message: 'Error del servidor' });
+        } else {
+            if (!courseUpdated) {
+                res.status(404).send({ code: 404, message: 'Curso no encontrado' });
+            } else {
+                res.status(200).send({ code: 200, message: 'El curso ha sido actualizado correctamente' });
+            }
+        }
+    });
+}
+
 module.exports = {
     addCourse,
     getCourses,
-    deleteCourse
+    deleteCourse,
+    updateCourse
 };
