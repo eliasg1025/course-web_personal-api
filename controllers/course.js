@@ -7,12 +7,21 @@ function addCourse(req, res) {
 
     course.save((err, courseStored) => {
         if (err) {
-            res.status(500).send({ code: 500, message: 'El curso que estas creando ya existe' });
+            res.status(500).send({
+                code: 500,
+                message: 'El curso que estas creando ya existe',
+            });
         } else {
             if (!courseStored) {
-                res.status(400).send({ code: 400, message: 'No se ja podido crear el curso' });
+                res.status(400).send({
+                    code: 400,
+                    message: 'No se ja podido crear el curso',
+                });
             } else {
-                res.status(200).send({ code: 200, message: 'Curso creado correctamente' });
+                res.status(200).send({
+                    code: 200,
+                    message: 'Curso creado correctamente',
+                });
             }
         }
     });
@@ -23,10 +32,16 @@ function getCourses(req, res) {
         .sort({ order: 'asc' })
         .exec((err, coursesStored) => {
             if (err) {
-                res.status(500).send({ code: 500, message: 'Error del servidor' });
+                res.status(500).send({
+                    code: 500,
+                    message: 'Error del servidor',
+                });
             } else {
                 if (!coursesStored) {
-                    res.status(404).send({ code: 404, message: 'No se ha encontrado ningun curso' });
+                    res.status(404).send({
+                        code: 404,
+                        message: 'No se ha encontrado ningun curso',
+                    });
                 } else {
                     res.status(200).send({ code: 200, courses: coursesStored });
                 }
@@ -42,9 +57,15 @@ function deleteCourse(req, res) {
             res.status(500).send({ code: 500, message: 'Error del servidor' });
         } else {
             if (!courseDeleted) {
-                res.status(404).send({ code: 404, message: 'Curso no encontrado' });
+                res.status(404).send({
+                    code: 404,
+                    message: 'Curso no encontrado',
+                });
             } else {
-                res.status(200).send({ code: 200, message: 'El curso ha sido eliminado correctamente' });
+                res.status(200).send({
+                    code: 200,
+                    message: 'El curso ha sido eliminado correctamente',
+                });
             }
         }
     });
@@ -59,9 +80,15 @@ function updateCourse(req, res) {
             res.status(500).send({ code: 500, message: 'Error del servidor' });
         } else {
             if (!courseUpdated) {
-                res.status(404).send({ code: 404, message: 'Curso no encontrado' });
+                res.status(404).send({
+                    code: 404,
+                    message: 'Curso no encontrado',
+                });
             } else {
-                res.status(200).send({ code: 200, message: 'El curso ha sido actualizado correctamente' });
+                res.status(200).send({
+                    code: 200,
+                    message: 'El curso ha sido actualizado correctamente',
+                });
             }
         }
     });
@@ -71,5 +98,5 @@ module.exports = {
     addCourse,
     getCourses,
     deleteCourse,
-    updateCourse
+    updateCourse,
 };

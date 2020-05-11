@@ -17,25 +17,25 @@ function signUp(req, res) {
     } else {
         if (password !== repeatPassword) {
             res.status(404).send({
-                message: 'Las contraseñas tienen que ser iguales'
+                message: 'Las contraseñas tienen que ser iguales',
             });
         } else {
             bcrypt.hash(password, null, null, function (err, hash) {
                 if (err) {
                     res.status(500).send({
-                        message: 'Error al encriptar la constraseña'
+                        message: 'Error al encriptar la constraseña',
                     });
                 } else {
                     user.password = hash;
                     user.save((err, userStored) => {
                         if (err) {
                             res.status(500).send({
-                                message: 'El usuario ya existe'
+                                message: 'El usuario ya existe',
                             });
                         } else {
                             if (!userStored) {
                                 res.status(404).send({
-                                    message: 'Error al crear el usuario'
+                                    message: 'Error al crear el usuario',
                                 });
                             } else {
                                 res.status(200).send({ user: userStored });
@@ -65,18 +65,20 @@ function signIn(req, res) {
                         res.status(500).send({ message: 'Error del servidor' });
                     } else if (!check) {
                         res.status(404).send({
-                            message: 'La contraseña es incorrecta'
+                            message: 'La contraseña es incorrecta',
                         });
                     } else {
                         if (!userStored.active) {
                             res.status(200).send({
                                 code: 200,
-                                message: 'El usuario no se ha activado'
+                                message: 'El usuario no se ha activado',
                             });
                         } else {
                             res.status(200).send({
                                 accessToken: jwt.createAccessToken(userStored),
-                                refreshToken: jwt.createRefreshToken(userStored)
+                                refreshToken: jwt.createRefreshToken(
+                                    userStored
+                                ),
                             });
                         }
                     }
@@ -87,10 +89,10 @@ function signIn(req, res) {
 }
 
 function getUsers(req, res) {
-    User.find().then(users => {
+    User.find().then((users) => {
         if (!users) {
             res.status(404).send({
-                message: 'No se ha encontrado ningun usuario'
+                message: 'No se ha encontrado ningun usuario',
             });
         } else {
             res.status(200).send({ users });
@@ -101,10 +103,10 @@ function getUsers(req, res) {
 function getUsersActive(req, res) {
     const query = req.query;
 
-    User.find({ active: query.active }).then(users => {
+    User.find({ active: query.active }).then((users) => {
         if (!users) {
             res.status(404).send({
-                message: 'No se ha encontrado ningun usuario'
+                message: 'No se ha encontrado ningun usuario',
             });
         } else {
             res.status(200).send({ users });
@@ -121,7 +123,7 @@ function uploadAvatar(req, res) {
         } else {
             if (!userData) {
                 res.status(404).send({
-                    message: 'No se ha encontrado ningun usuario'
+                    message: 'No se ha encontrado ningun usuario',
                 });
             } else {
                 let user = userData;
@@ -139,7 +141,7 @@ function uploadAvatar(req, res) {
                     if (!acceptedExt.includes(fileExt)) {
                         res.status(400).send({
                             message:
-                                'La extensión de la imagen no es valida (jpg, jpeg, png)'
+                                'La extensión de la imagen no es valida (jpg, jpeg, png)',
                         });
                     } else {
                         user.avatar = fileName;
@@ -149,17 +151,17 @@ function uploadAvatar(req, res) {
                             (err, userResult) => {
                                 if (err) {
                                     res.status(500).send({
-                                        message: 'Error del servidor'
+                                        message: 'Error del servidor',
                                     });
                                 } else {
                                     if (!userResult) {
                                         res.status(404).send({
                                             message:
-                                                'No se ha encontrado ningun usuario'
+                                                'No se ha encontrado ningun usuario',
                                         });
                                     } else {
                                         res.status(200).send({
-                                            avatarName: fileName
+                                            avatarName: fileName,
                                         });
                                     }
                                 }
@@ -176,7 +178,7 @@ function getAvatar(req, res) {
     const avatarName = req.params.avatarName;
     const filePath = './uploads/avatar/' + avatarName;
 
-    fs.exists(filePath, exists => {
+    fs.exists(filePath, (exists) => {
         if (!exists) {
             res.status(404).send({ message: 'El avatar que buscas no existe' });
         } else {
@@ -194,7 +196,7 @@ async function updateUser(req, res) {
         await bcrypt.hash(userData.password, null, null, (err, hash) => {
             if (err) {
                 res.status(500).send({
-                    message: 'Error al encriptar la contraseña'
+                    message: 'Error al encriptar la contraseña',
                 });
             } else {
                 userData.password = hash;
@@ -208,11 +210,11 @@ async function updateUser(req, res) {
         } else {
             if (!userUpdate) {
                 res.status(404).send({
-                    message: 'No se ha encontrado ningun usuario'
+                    message: 'No se ha encontrado ningun usuario',
                 });
             } else {
                 res.status(200).send({
-                    message: 'Usuario actualizado correctamente'
+                    message: 'Usuario actualizado correctamente',
                 });
             }
         }
@@ -229,16 +231,16 @@ function activateUser(req, res) {
         } else {
             if (!userStored) {
                 res.status(404).send({
-                    message: 'No se ha encontrado el usuario'
+                    message: 'No se ha encontrado el usuario',
                 });
             } else {
                 if (active === true) {
                     res.status(200).send({
-                        message: 'Usuario activado correctamente'
+                        message: 'Usuario activado correctamente',
                     });
                 } else {
                     res.status(200).send({
-                        message: 'Usuario descativado correctamente'
+                        message: 'Usuario descativado correctamente',
                     });
                 }
             }
@@ -257,7 +259,7 @@ function deleteUser(req, res) {
                 res.status(404).send({ message: 'Usuario no encontrado' });
             } else {
                 res.status(200).send({
-                    message: 'El usuario ha sido eliminado correctamente'
+                    message: 'El usuario ha sido eliminado correctamente',
                 });
             }
         }
@@ -281,7 +283,7 @@ function signUpAdmin(req, res) {
         bcrypt.hash(password, null, null, (err, hash) => {
             if (err) {
                 res.status(500).send({
-                    message: 'Error al encriptar la contraseña'
+                    message: 'Error al encriptar la contraseña',
                 });
             } else {
                 user.password = hash;
@@ -289,15 +291,17 @@ function signUpAdmin(req, res) {
                 user.save((err, userStored) => {
                     if (err) {
                         res.status(500).send({
-                            message: 'Usuario ya existente'
+                            message: 'Usuario ya existente',
                         });
                     } else {
                         if (!userStored) {
                             res.status(500).send({
-                                message: 'Error al crear el nuevo usuario'
+                                message: 'Error al crear el nuevo usuario',
                             });
                         } else {
-                            res.status(200).send({ message: 'Usuario creado correctamente' });
+                            res.status(200).send({
+                                message: 'Usuario creado correctamente',
+                            });
                         }
                     }
                 });
@@ -316,5 +320,5 @@ module.exports = {
     updateUser,
     activateUser,
     deleteUser,
-    signUpAdmin
+    signUpAdmin,
 };

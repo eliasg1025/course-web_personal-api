@@ -6,7 +6,7 @@ const SECRET_KEY = 'dasjdkjhKLHAJGHJKSD54asd54asdasjHjksahd';
 exports.ensureAuth = (req, res, next) => {
     if (!req.headers.authorization) {
         return res.status(401).send({
-            message: 'La peticion no tiene cabecera de autenticacion'
+            message: 'La peticion no tiene cabecera de autenticacion',
         });
     }
 

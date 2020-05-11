@@ -5,12 +5,12 @@ const CourseSchema = Schema({
     idCourse: {
         type: Number,
         unique: true,
-        required: true
+        required: true,
     },
     link: String,
     coupon: String,
     price: Number,
-    order: Number
+    order: Number,
 });
 
 module.exports = mongoose.model('Course', CourseSchema);

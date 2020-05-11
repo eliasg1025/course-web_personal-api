@@ -9,7 +9,7 @@ const { API_VERSION } = require('./config');
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const menuRoutes = require('./routes/menu');
-const newsletterRoutes = require('./routes/newsletter.js');
+const newsletterRoutes = require('./routes/newsletter');
 const courseRoutes = require('./routes/course');
 
 app.use(bodyParser.urlencoded({ extended: false }));

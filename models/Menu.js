@@ -5,7 +5,7 @@ const MenuSchema = Schema({
     title: String,
     url: String,
     order: Number,
-    active: Boolean
+    active: Boolean,
 });
 
 module.exports = mongoose.model('Menu', MenuSchema);

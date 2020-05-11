@@ -30,7 +30,7 @@ function getMenus(req, res) {
             } else {
                 if (!menusStored || menusStored.length === 0) {
                     res.status(404).send({
-                        message: 'No se ha encontrado ningun menu'
+                        message: 'No se ha encontrado ningun menu',
                     });
                 } else {
                     res.status(200).send({ menus: menusStored });
@@ -49,11 +49,11 @@ function updateMenu(req, res) {
         } else {
             if (!menuUpdate) {
                 res.status(404).send({
-                    message: 'No se ha encontrado ningun menu'
+                    message: 'No se ha encontrado ningun menu',
                 });
             } else {
                 res.status(200).send({
-                    message: 'Menu actulizado correctamente'
+                    message: 'Menu actulizado correctamente',
                 });
             }
         }
@@ -70,16 +70,16 @@ function activateMenu(req, res) {
         } else {
             if (!menuStored) {
                 res.status(404).send({
-                    message: 'No se ha encontrado en el menu'
+                    message: 'No se ha encontrado en el menu',
                 });
             } else {
                 if (active === true) {
                     res.status(200).send({
-                        message: 'Menu activado correctamente'
+                        message: 'Menu activado correctamente',
                     });
                 } else {
                     res.status(200).send({
-                        message: 'Menu desactivado correctamente'
+                        message: 'Menu desactivado correctamente',
                     });
                 }
             }
@@ -98,7 +98,7 @@ function deleteMenu(req, res) {
                 res.status(404).send({ message: 'Menu no encontrado' });
             } else {
                 res.status(200).send({
-                    message: 'El Menu ha sido eliminado correctamente'
+                    message: 'El Menu ha sido eliminado correctamente',
                 });
             }
         }
@@ -110,5 +110,5 @@ module.exports = {
     getMenus,
     updateMenu,
     activateMenu,
-    deleteMenu
+    deleteMenu,
 };
