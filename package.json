@@ -6,7 +6,8 @@
   "author": "Elias Guere",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
