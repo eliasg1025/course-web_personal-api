@@ -1,8 +1,8 @@
 # API Rest from personal web site
 
-End points:
-
 Base URI: `/api/v1/`
+
+End points:
 
 Name | Method | URI | Protected
 -------|--------|-----|----------

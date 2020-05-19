@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const API_VERSION = process.env.API_VERSION || 'v1';
+const SECRET_KEY = process.env.SECRET_KEY;
 const PORT = process.env.PORT || 3977;
 const IP_SERVER = process.env.IP_SERVER || 'http://localhost';
 const CORS = process.env.CORS;
@@ -13,6 +14,7 @@ const DB_HOST = process.env.DB_HOST;
 
 module.exports = {
     API_VERSION,
+    SECRET_KEY,
     IP_SERVER,
     PORT,
     CORS,
