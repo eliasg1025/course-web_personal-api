@@ -6,7 +6,7 @@ function addPost(req, res) {
 
     post.save((err, postStored) => {
         if (err) {
-            res.status(500).send({ code: 500, message: 'Error del servidor' });
+            res.status(500).send({ code: 500, message: err });
         } else {
             if (!postStored) {
                 res.status(400).send({ code: 400, message: 'No se ha podido crear el post' });
